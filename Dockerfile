@@ -1,4 +1,4 @@
-FROM bitwalker/alpine-elixir-phoenix:1.11.3
+FROM elixir:1.11.3
 
 RUN apt-get update && \
     apt-get install -y postgresql-client && \

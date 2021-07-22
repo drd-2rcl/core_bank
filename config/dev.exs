@@ -5,7 +5,7 @@ config :core_bank_api, CoreBankApi.Repo,
   username: "postgres",
   password: "postgres",
   database: "core_bank_api_dev",
-  hostname: "localhost",
+  hostname: "db",
   show_sensitive_data_on_connection_error: true,
   pool_size: 10
 

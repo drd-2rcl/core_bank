@@ -56,25 +56,25 @@ jobs:
         run: mix test
 
   deploy:
-  needs: build # Will only run if the build job succeeds
-  if: github.ref == 'refs/heads/main' # Only run this job if it is on the main branch
+    needs: build # Will only run if the build job succeeds
+    if: github.ref == 'refs/heads/main' # Only run this job if it is on the main branch
 
-  runs-on: ubuntu-latest
+    runs-on: ubuntu-latest
 
-  steps:
-    - uses: actions/checkout@v2
-      with:
-        ref: main # Check out main instead of the latest commit
-        fetch-depth: 0 # Checkout the whole branch
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          ref: main # Check out main instead of the latest commit
+          fetch-depth: 0 # Checkout the whole branch
 
-    - uses: actions/setup-python@v2
-      with:
-        python-version: 3.8.1
+      - uses: actions/setup-python@v2
+        with:
+          python-version: 3.8.1
 
-    - uses: mhanberg/gigalixir-action@<current release>
-      with:
-        GIGALIXIR_APP: vain-silver-verdin
-        GIGALIXIR_USERNAME: ${{ secrets.GIGALIXIR_USERNAME }}
-        GIGALIXIR_PASSWORD: ${{ secrets.GIGALIXIR_PASSWORD }}
-        SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
-        MIGRATIONS: false
+      - uses: mhanberg/gigalixir-action@<current release>
+        with:
+          GIGALIXIR_APP: vain-silver-verdin
+          GIGALIXIR_USERNAME: ${{ secrets.GIGALIXIR_USERNAME }}
+          GIGALIXIR_PASSWORD: ${{ secrets.GIGALIXIR_PASSWORD }}
+          SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+          MIGRATIONS: false

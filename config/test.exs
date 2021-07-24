@@ -13,7 +13,7 @@ config :core_bank_api, CoreBankApi.Repo,
   pool: Ecto.Adapters.SQL.Sandbox
 
 if System.get_env("GITHUB_ACTIONS") do
-  config :core_bank_api, Payments.Repo,
+  config :core_bank_api, CoreBankApi.Repo,
     hostname: "localhost"
 end
 

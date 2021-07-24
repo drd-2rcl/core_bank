@@ -1,5 +1,7 @@
 # CoreBankApi
 
+[![codecov](https://codecov.io/gh/drd-2rcl/core_bank/branch/main/graph/badge.svg?token=NJFSOT6VYH)](https://codecov.io/gh/drd-2rcl/core_bank)
+
 To start your Phoenix server:
 
   * Install dependencies with `mix deps.get`

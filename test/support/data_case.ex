@@ -16,6 +16,8 @@ defmodule CoreBankApi.DataCase do
 
   use ExUnit.CaseTemplate
 
+  alias Ecto.Adapters.SQL.Sandbox
+
   using do
     quote do
       alias CoreBankApi.Repo
@@ -28,10 +30,10 @@ defmodule CoreBankApi.DataCase do
   end
 
   setup tags do
-    :ok = Ecto.Adapters.SQL.Sandbox.checkout(CoreBankApi.Repo)
+    :ok = Sandbox.checkout(CoreBankApi.Repo)
 
     unless tags[:async] do
-      Ecto.Adapters.SQL.Sandbox.mode(CoreBankApi.Repo, {:shared, self()})
+      Sandbox.mode(CoreBankApi.Repo, {:shared, self()})
     end
 
     :ok

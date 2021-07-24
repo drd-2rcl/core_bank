@@ -1,4 +1,6 @@
 defmodule CoreBankApiWeb.PageLive do
+  @moduledoc false
+
   use CoreBankApiWeb, :live_view
 
   @impl true

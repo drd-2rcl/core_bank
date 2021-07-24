@@ -12,6 +12,11 @@ config :core_bank_api, CoreBankApi.Repo,
   hostname: "db",
   pool: Ecto.Adapters.SQL.Sandbox
 
+if System.get_env("GITHUB_ACTIONS") do
+  config :core_bank_api, Payments.Repo,
+    hostname: "localhost"
+end
+
 # We don't run a server during test. If one is required,
 # you can enable the server option below.
 config :core_bank_api, CoreBankApiWeb.Endpoint,

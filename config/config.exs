@@ -10,6 +10,11 @@ use Mix.Config
 config :core_bank_api,
   ecto_repos: [CoreBankApi.Repo]
 
+# Configures primary and foreign key with binary_id
+config :core_bank_api, CoreBankApi.Repo,
+  migration_primary_key: [type: :binary_id],
+  migration_foreign_key: [type: :binary_id]
+
 # Configures the endpoint
 config :core_bank_api, CoreBankApiWeb.Endpoint,
   url: [host: "localhost"],

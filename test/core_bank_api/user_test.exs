@@ -1,8 +1,8 @@
 defmodule CoreBankApi.UserTest do
   use CoreBankApi.DataCase, async: true
 
-  alias Ecto.Changeset
   alias CoreBankApi.User
+  alias Ecto.Changeset
 
   describe "changeset/2" do
     test "when all params are valid, returns a valid changeset" do

@@ -2,6 +2,7 @@ defmodule CoreBankApi.UserTest do
   use CoreBankApi.DataCase, async: true
 
   alias Ecto.Changeset
+  alias CoreBankApi.User
 
   describe "changeset/2" do
     test "when all params are valid, returns a valid changeset" do
@@ -9,12 +10,12 @@ defmodule CoreBankApi.UserTest do
         name: "Teste",
         age: 23,
         email: "teste@teste.com",
-        password_hash: "123456",
+        password: "123456"
       }
 
       response = User.changeset(params)
 
-      assert %Changeset{changes: %{name: "Caco"}, valid?: false} = response
+      assert %Changeset{changes: %{name: "Teste"}, valid?: true} = response
     end
   end
 end

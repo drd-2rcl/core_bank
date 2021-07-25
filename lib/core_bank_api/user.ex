@@ -16,12 +16,11 @@ defmodule CoreBankApi.User do
 
   use Ecto.Schema
   import Ecto.Changeset
-
   alias Ecto.Changeset
 
   @primary_key {:id, :binary_id, autogenerate: true}
-
   @required_params [:name, :age, :email, :password]
+  @derive {Jason.Encoder, only: [:id, :name, :email]}
 
   schema "users" do
     field :name, :string

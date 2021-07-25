@@ -3,7 +3,7 @@ defmodule CoreBankApi.UserTest do
 
   import CoreBankApi.Factory
 
-  alias CoreBankApi.{Repo, User}
+  alias CoreBankApi.User
   alias Ecto.Changeset
 
   describe "changeset/2" do
@@ -16,7 +16,8 @@ defmodule CoreBankApi.UserTest do
     end
 
     test "when there are some error, returns an invalid changeset with info error" do
-      params = build(:user_params, %{age: 13, email: "testeteste.com", password: "123"})
+      params =
+        build(:user_params, %{"age" => 13, "email" => "testeteste.com", "password" => "123"})
 
       response = User.changeset(params)
 

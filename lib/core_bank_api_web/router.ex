@@ -14,6 +14,12 @@ defmodule CoreBankApiWeb.Router do
     plug :accepts, ["json"]
   end
 
+  scope "/api/v1", CoreBankApiWeb.Api.V1 do
+    pipe_through :api
+
+    post "/users", UserController, :create
+  end
+
   scope "/", CoreBankApiWeb do
     pipe_through :browser
 

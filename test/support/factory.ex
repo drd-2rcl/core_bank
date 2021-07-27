@@ -34,4 +34,8 @@ defmodule CoreBankApi.Factory do
       password: "123456"
     }
   end
+
+  def account_params_factory do
+    %{"balance" => 1000.00}
+  end
 end

@@ -13,11 +13,10 @@ defmodule CoreBankApi.User do
       }
       User.changeset(params)
   """
-
   use Ecto.Schema
   import Ecto.Changeset
-  alias Ecto.Changeset
   alias CoreBankApi.Account
+  alias Ecto.Changeset
 
   @primary_key {:id, :binary_id, autogenerate: true}
   @required_params [:name, :age, :email, :password]

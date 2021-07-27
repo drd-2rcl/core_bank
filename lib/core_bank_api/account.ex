@@ -1,4 +1,16 @@
 defmodule CoreBankApi.Account do
+  @moduledoc """
+  This module is responsible for validating the parameters needed to create a account
+
+  This can be used as:
+
+      alias CoreBankApi.Account
+      params = %{
+        balance: 1000.00,
+        user_id: "e2aad3dd-2834-4b61-b98c-f01b575cd770"
+      }
+      Account.changeset(params)
+  """
   use Ecto.Schema
   import Ecto.Changeset
 

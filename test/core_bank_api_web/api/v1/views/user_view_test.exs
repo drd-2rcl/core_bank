@@ -5,23 +5,29 @@ defmodule CoreBankApiWeb.Api.V1.UserViewTest do
   import CoreBankApi.Factory
 
   alias CoreBankApiWeb.Api.V1.UserView
+  alias CoreBankApi.{Account, User}
 
   test "renders create.json" do
     user = build(:user)
+    account = build(:account)
 
-    response = render(UserView, "create.json", user: user)
+    response =
+      render(UserView, "create.json", %{
+        user: %User{
+          account: %Account{id: account.id, balance: account.balance},
+          id: user.id,
+          name: user.name,
+          email: user.email
+        }
+      })
 
     assert %{
              message: "User created!",
-             user: %CoreBankApi.User{
-               age: 23,
+             user: %{
+               account: %{balance: 10, id: "961070c5-9f77-4cd2-80af-8900386e10fb"},
                email: "barry_allen@teamflash.com",
                id: "f2496b9e-2b97-4abe-9856-738abcdc3d91",
-               inserted_at: nil,
-               name: "Barry Allen",
-               password: "123456",
-               password_hash: nil,
-               updated_at: nil
+               name: "Barry Allen"
              }
            } = response
   end

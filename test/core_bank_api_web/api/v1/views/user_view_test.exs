@@ -24,7 +24,7 @@ defmodule CoreBankApiWeb.Api.V1.UserViewTest do
     assert %{
              message: "User created!",
              user: %{
-               account: %{balance: 10, id: "961070c5-9f77-4cd2-80af-8900386e10fb"},
+               account: %{balance: "R$ 10", id: "961070c5-9f77-4cd2-80af-8900386e10fb"},
                email: "barry_allen@teamflash.com",
                id: "f2496b9e-2b97-4abe-9856-738abcdc3d91",
                name: "Barry Allen"

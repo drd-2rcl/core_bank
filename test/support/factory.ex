@@ -14,7 +14,7 @@ defmodule CoreBankApi.Factory do
   end
   """
   use ExMachina
-  alias CoreBankApi.User
+  alias CoreBankApi.{Account, User}
 
   def user_params_factory do
     %{
@@ -31,7 +31,23 @@ defmodule CoreBankApi.Factory do
       name: "Barry Allen",
       age: 23,
       email: "barry_allen@teamflash.com",
-      password: "123456"
+      password: "123456",
+      account: %{
+        id: "961070c5-9f77-4cd2-80af-8900386e10fb",
+        balance: 10
+      }
+    }
+  end
+
+  def account_params_factory do
+    %{"balance" => 1000.00}
+  end
+
+  def account_factory do
+    %Account{
+      id: "961070c5-9f77-4cd2-80af-8900386e10fb",
+      balance: 10,
+      user_id: "dc21eaeb-07aa-4062-835a-328314da2147"
     }
   end
 end

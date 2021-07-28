@@ -13,9 +13,9 @@ defmodule CoreBankApi.User do
       }
       User.changeset(params)
   """
-
   use Ecto.Schema
   import Ecto.Changeset
+  alias CoreBankApi.Account
   alias Ecto.Changeset
 
   @primary_key {:id, :binary_id, autogenerate: true}
@@ -28,6 +28,8 @@ defmodule CoreBankApi.User do
     field :email, :string
     field :password, :string, virtual: true
     field :password_hash, :string
+
+    has_one :account, Account
 
     timestamps()
   end

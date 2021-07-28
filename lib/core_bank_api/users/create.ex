@@ -1,6 +1,6 @@
 defmodule CoreBankApi.Users.Create do
   @moduledoc """
-  This module is responsible for creating the user
+  This module is responsible for creating the user and the account
 
   This can be used as:
 
@@ -13,18 +13,35 @@ defmodule CoreBankApi.Users.Create do
       }
       Create.call(params)
   """
-  alias CoreBankApi.{Repo, User}
+  alias CoreBankApi.{Account, Repo, User}
+  alias Ecto.Multi
 
   def call(params) do
-    params
-    |> User.changeset()
-    |> Repo.insert()
-    |> handle_insert()
+    Multi.new()
+    |> Multi.insert(:create_user, User.changeset(params))
+    |> Multi.run(:create_account, fn repo, %{create_user: user} ->
+      insert_account(repo, user.id)
+    end)
+    |> Multi.run(:preload_data, fn repo, %{create_user: user} -> preload_data(repo, user) end)
+    |> run_transaction()
   end
 
-  defp handle_insert({:ok, %User{}} = result), do: result
+  defp insert_account(repo, user_id) do
+    user_id
+    |> account_changeset()
+    |> repo.insert()
+  end
 
-  defp handle_insert({:error, result}) do
-    {:error, %{status: :bad_request, result: result}}
+  defp account_changeset(user_id), do: Account.changeset(%{user_id: user_id, balance: 1000.00})
+
+  defp preload_data(repo, user) do
+    {:ok, repo.preload(user, :account)}
+  end
+
+  defp run_transaction(multi) do
+    case Repo.transaction(multi) do
+      {:error, _operation, reason, _changes} -> {:error, %{status: :bad_request, result: reason}}
+      {:ok, %{preload_data: user}} -> {:ok, user}
+    end
   end
 end

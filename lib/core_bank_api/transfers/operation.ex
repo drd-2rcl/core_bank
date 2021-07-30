@@ -6,9 +6,9 @@ defmodule CoreBankApi.Transfers.Operation do
   return a final value, but anonymous functions that were executed and will be terminated
   in the modules that were called.
   """
-  alias Ecto.Multi
   alias CoreBankApi.Account
   alias CoreBankApi.Accounts.Get, as: GetAccount
+  alias Ecto.Multi
 
   def call(%{"id" => id, "value" => value}, operation) do
     operation_name = account_operation_name(operation)

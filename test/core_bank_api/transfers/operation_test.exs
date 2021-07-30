@@ -2,8 +2,8 @@ defmodule CoreBankApi.Transfers.OperationTest do
   use CoreBankApi.DataCase, async: true
   import CoreBankApi.Factory
 
-  alias Ecto.Multi
   alias CoreBankApi.Transfers.Operation
+  alias Ecto.Multi
 
   describe "call/2" do
     test "when the operation is credit" do

@@ -1,9 +1,9 @@
 defmodule CoreBankApi.Accounts.GetTest do
   use CoreBankApi.DataCase, async: true
-
-  alias CoreBankApi.Accounts.Get
-  alias CoreBankApi.Account
   import CoreBankApi.Factory
+
+  alias CoreBankApi.Account
+  alias CoreBankApi.Accounts.Get
 
   describe "call/1" do
     test "when the id is valid, returns the account" do

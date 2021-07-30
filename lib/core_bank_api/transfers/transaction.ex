@@ -1,7 +1,20 @@
 defmodule CoreBankApi.Transfers.Transaction do
-  alias Ecto.Multi
-  alias CoreBankApi.Transfers.Operation
+  @moduledoc """
+  This module is responsible for carrying out transfers between accounts.
+
+    This can be used as:
+
+      alias CoreBankApi.Transfers.Transaction
+      params = %{
+        "from_account" => "3ee6694d-518e-489f-987e-09325500e497",
+        "to_account" => "0eaddc71-87fb-435e-bac8-3e19de0f924f",
+        "value" => "20.0"
+      }
+      Transaction.call(params)
+  """
   alias CoreBankApi.{Repo, Transfer}
+  alias CoreBankApi.Transfers.Operation
+  alias Ecto.Multi
 
   def call(%{"from_account" => from_account, "to_account" => to_account, "value" => value}) do
     debit_params = build_params(from_account, value)

@@ -7,8 +7,8 @@ defmodule CoreBankApi.Accounts.Get do
       alias CoreBankApi.Accounts.Get
       Get.by_id("5ced2ecb-b184-4bf1-8e5e-0d2cf899ad76")
   """
+  alias CoreBankApi.{Account, Repo}
   alias Ecto.UUID
-  alias CoreBankApi.{Repo, Account}
 
   def by_id(id) do
     case UUID.cast(id) do

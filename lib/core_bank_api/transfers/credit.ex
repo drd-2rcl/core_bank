@@ -1,4 +1,12 @@
 defmodule CoreBankApi.Transfers.Credit do
+  @moduledoc """
+  This module is responsible for receiving amounts that will be credited to an account.
+
+    This can be used as:
+
+      alias CoreBankApi.Transfers.Credit
+      Credit.call(%{"id" => "3ee6694d-518e-489f-987e-09325500e497", "value" => "10.0"})
+  """
   alias CoreBankApi.Repo
   alias CoreBankApi.Transfers.Operation
 

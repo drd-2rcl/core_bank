@@ -14,7 +14,7 @@ defmodule CoreBankApiWeb.Api.V1.UserViewTest do
     response =
       render(UserView, "create.json", %{
         user: %User{
-          account: %Account{id: account.id, balance: account.balance},
+          account: %Account{id: user.account.id, balance: account.balance},
           id: user.id,
           name: user.name,
           email: user.email

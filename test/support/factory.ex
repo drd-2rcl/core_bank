@@ -39,6 +39,16 @@ defmodule CoreBankApi.Factory do
     }
   end
 
+  def user_without_account_factory do
+    %User{
+      id: "f2496b9e-2b97-4abe-9856-738abcdc3d91",
+      name: "Barry Allen",
+      age: 23,
+      email: "barry_allen@teamflash.com",
+      password: "123456"
+    }
+  end
+
   def account_params_factory do
     %{"balance" => 1000.00}
   end

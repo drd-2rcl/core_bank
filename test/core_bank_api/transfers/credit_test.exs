@@ -2,21 +2,24 @@ defmodule CoreBankApi.Transfers.CreditTest do
   use CoreBankApi.DataCase, async: true
   import CoreBankApi.Factory
 
+  alias CoreBankApi.Accounts.Get
   alias CoreBankApi.Transfers.Credit
 
   describe "call/1" do
     test "when receive valid params" do
       user = insert(:user)
-      account = insert(:account_credit, %{user_id: user.id})
+      account = insert(:account_debit, %{user_id: user.id, balance: "10.0"})
 
       params = %{
         "id" => "#{account.id}",
-        "value" => "20.0"
+        "value" => "10.0"
       }
 
       {:ok, account} = Credit.call(params)
 
-      assert account.balance == Decimal.new(20)
+      {:ok, updated_account} = Get.by_id(account.id)
+
+      assert updated_account.balance == Decimal.new("20.0")
     end
 
     test "when receive invalid value" do

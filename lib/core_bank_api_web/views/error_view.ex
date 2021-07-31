@@ -20,7 +20,7 @@ defmodule CoreBankApiWeb.ErrorView do
     %{message: translate_errors(changeset)}
   end
 
-  def render("error.json", result) do
+  def render("error.json", %{result: result}) do
     %{message: result}
   end
 

@@ -8,7 +8,9 @@ defmodule CoreBankApi do
   """
   alias CoreBankApi.Transfers.Transaction, as: TransferCreate
   alias CoreBankApi.Users.Create, as: UserCreate
+  alias CoreBankApi.Accounts.Withdraw, as: WithdrawCreate
 
   defdelegate create_user(params), to: UserCreate, as: :call
   defdelegate create_transfer(params), to: TransferCreate, as: :call
+  defdelegate create_withdraw(params), to: WithdrawCreate, as: :call
 end

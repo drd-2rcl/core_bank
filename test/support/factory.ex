@@ -14,7 +14,7 @@ defmodule CoreBankApi.Factory do
   end
   """
   use ExMachina.Ecto, repo: CoreBankApi.Repo
-  alias CoreBankApi.{Account, User}
+  alias CoreBankApi.{Account, Transfer, User}
 
   def user_params_factory do
     %{
@@ -82,9 +82,18 @@ defmodule CoreBankApi.Factory do
     value = Map.get(attrs, :balance, 10)
 
     %Account{
-      id: "71a39068-2e18-4f85-853a-b8d19fa5b7ba",
+      id: "41ac7822-5f62-4d49-b124-fe8db9a85dff",
       balance: value,
       user_id: "f2496b9e-2b97-4abe-9856-738abcdc3d91"
+    }
+  end
+
+  def transfer_factory do
+    %Transfer{
+      id: "f2496b9e-2b97-4abe-9856-738abcdc3d91",
+      from_account: "14316760-26ee-43c3-858c-c331a8da40a5",
+      to_account: "d3fe719d-6fe4-4e4e-abc6-42c8dcf992fc",
+      amount: "50.0"
     }
   end
 end

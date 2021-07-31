@@ -19,6 +19,7 @@ defmodule CoreBankApiWeb.Router do
 
     post "/users", UserController, :create
     post "/transfers", TransferController, :create
+    post "/accounts/:id/withdraw", AccountController, :withdraw
   end
 
   scope "/", CoreBankApiWeb do

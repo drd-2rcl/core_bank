@@ -55,6 +55,7 @@ defmodule CoreBankApi.Factory do
 
   def account_factory do
     %Account{
+      id: "8ce40338-521f-4f6a-9c0e-a9022e81655e",
       balance: 10,
       user_id: "f2496b9e-2b97-4abe-9856-738abcdc3d91"
     }
@@ -94,6 +95,20 @@ defmodule CoreBankApi.Factory do
       from_account: "14316760-26ee-43c3-858c-c331a8da40a5",
       to_account: "d3fe719d-6fe4-4e4e-abc6-42c8dcf992fc",
       amount: "50.0"
+    }
+  end
+
+  def withdraw_params_factory do
+    %{
+      "id" => "41ac7822-5f62-4d49-b124-fe8db9a85dff",
+      "value" => "10.0"
+    }
+  end
+
+  def withdraw_account_factory do
+    %Account{
+      id: "41ac7822-5f62-4d49-b124-fe8db9a85dff",
+      balance: "210.0"
     }
   end
 end

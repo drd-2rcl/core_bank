@@ -13,11 +13,11 @@ defmodule CoreBankApi.Transfer do
       Transfer.changeset(params)
   """
   use Ecto.Schema
-
   import Ecto.Changeset
 
   @primary_key {:id, :binary_id, autogenerate: true}
   @required_params [:from_account, :to_account, :amount]
+  @derive {Jason.Encoder, only: [:from_account, :to_account, :amount]}
 
   schema "transfers" do
     field :from_account, :string

@@ -19,11 +19,10 @@ defmodule CoreBankApi.Transfers.Debit do
   defp run_transaction(multi) do
     case Repo.transaction(multi) do
       {:error, _operation, reason, _changes} ->
-        {:error, %{status: :bad_request, result: reason}}
+        {:error, reason}
 
       {:ok, %{account_debit: account}} ->
         {:ok, account}
-        # Criar um registro na tabela de withdraw e enviar email
     end
   end
 end

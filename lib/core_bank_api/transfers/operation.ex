@@ -35,7 +35,7 @@ defmodule CoreBankApi.Transfers.Operation do
 
   defp handle_cast({:ok, value}, balance, :credit), do: Decimal.add(balance, value)
   defp handle_cast({:ok, value}, balance, :debit), do: Decimal.sub(balance, value)
-  defp handle_cast(:error, _balance, _operation), do: {:error, "Invalid transfer value!"}
+  defp handle_cast(:error, _balance, _operation), do: {:error, "Invalid value!"}
 
   defp update_account({:error, _reason} = error, _repo, _account), do: error
 

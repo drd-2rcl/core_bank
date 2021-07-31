@@ -8,7 +8,8 @@ defmodule CoreBankApi.WithdrawTest do
 
   describe "changeset/2" do
     test "when all params are valid, returns a valid changeset" do
-      params = build(:withdraw_params)
+      withdraw = build(:withdraw_params)
+      params = %{"account_id" => withdraw["id"], "amount" => withdraw["value"]}
 
       response = Withdraw.changeset(params)
 
@@ -22,14 +23,13 @@ defmodule CoreBankApi.WithdrawTest do
     end
 
     test "when there are some error, returns an invalid changeset with info error" do
-      params =
-        build(:withdraw_params, %{"account_id" => "", "amount" => ""})
+      params = build(:withdraw_params, %{"account_id" => "", "amount" => ""})
 
       response = Withdraw.changeset(params)
 
       expected_response = %{
         account_id: ["can't be blank"],
-        amount: ["can't be blank"],
+        amount: ["can't be blank"]
       }
 
       assert errors_on(response) == expected_response

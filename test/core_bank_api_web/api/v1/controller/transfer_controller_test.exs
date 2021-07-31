@@ -82,7 +82,7 @@ defmodule CoreBankApiWeb.Api.V1.TransferControllerTest do
         |> post(Routes.transfer_path(conn, :create, params))
         |> json_response(:bad_request)
 
-      assert %{"message" => "Invalid transfer value!"} = response
+      assert %{"message" => "Invalid value!"} = response
     end
 
     test "when receive invalid id", %{conn: conn} do

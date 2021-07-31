@@ -18,6 +18,7 @@ defmodule CoreBankApiWeb.Router do
     pipe_through :api
 
     post "/users", UserController, :create
+    post "/transfers", TransferController, :create
   end
 
   scope "/", CoreBankApiWeb do

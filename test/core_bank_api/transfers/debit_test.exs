@@ -33,7 +33,7 @@ defmodule CoreBankApi.Transfers.DebitTest do
 
       response = Debit.call(params)
 
-      assert {:error, %{result: "Invalid transfer value!", status: :bad_request}} = response
+      assert {:error, "Invalid value!"} = response
     end
 
     test "when receive invalid id" do
@@ -45,7 +45,7 @@ defmodule CoreBankApi.Transfers.DebitTest do
 
       assert {:error,
               %{
-                result: %{result: "Invalid ID format!", status: :bad_request}
+                result: "Invalid ID format!"
               }} = response
     end
   end

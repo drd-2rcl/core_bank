@@ -84,7 +84,7 @@ defmodule CoreBankApi.Transfers.TransactionTest do
 
       response = Transaction.call(params)
 
-      assert {:error, %{result: "Invalid transfer value!", status: :bad_request}} = response
+      assert {:error, %{result: "Invalid value!", status: :bad_request}} = response
     end
 
     test "when receive invalid id" do

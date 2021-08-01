@@ -7,9 +7,9 @@ defmodule CoreBankApi.Accounts.WithdrawEmail do
       alias CoreBankApi.Accounts.WithdrawEmail
       WithdrawEmail.call(%Account{})
   """
+  alias Bamboo.Email
   alias CoreBankApi.Accounts.Email, as: AccountEmail
   alias CoreBankApi.{Mailer, Repo, User}
-  alias Bamboo.Email
 
   def call(account) do
     account.user_id

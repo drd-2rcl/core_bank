@@ -15,6 +15,9 @@ config :core_bank_api, CoreBankApi.Repo,
   migration_primary_key: [type: :binary_id],
   migration_foreign_key: [type: :binary_id]
 
+# Configures the Bamboo
+config :core_bank_api, CoreBankApi.Mailer, adapter: Bamboo.LocalAdapter
+
 # Configures the endpoint
 config :core_bank_api, CoreBankApiWeb.Endpoint,
   url: [host: "localhost"],

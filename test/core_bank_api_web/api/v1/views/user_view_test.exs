@@ -9,10 +9,12 @@ defmodule CoreBankApiWeb.Api.V1.UserViewTest do
 
   test "renders create.json" do
     user = build(:user)
+    token = "token"
     account = build(:account)
 
     response =
       render(UserView, "create.json", %{
+        token: token,
         user: %User{
           account: %Account{id: user.account.id, balance: account.balance},
           id: user.id,
@@ -23,6 +25,7 @@ defmodule CoreBankApiWeb.Api.V1.UserViewTest do
 
     assert %{
              message: "User created!",
+             token: "token",
              user: %{
                account: %{balance: "R$ 10", id: "961070c5-9f77-4cd2-80af-8900386e10fb"},
                email: "barry_allen@teamflash.com",

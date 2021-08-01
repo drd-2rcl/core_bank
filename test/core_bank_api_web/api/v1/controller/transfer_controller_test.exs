@@ -1,18 +1,27 @@
 defmodule CoreBankApiWeb.Api.V1.TransferControllerTest do
   use CoreBankApiWeb.ConnCase, async: true
-
   import CoreBankApi.Factory
+  alias CoreBankApiWeb.Auth.Guardian
 
   describe "create/2" do
-    test "when all params are valid, creates the transfer", %{conn: conn} do
-      user1 = insert(:user_without_account)
 
+    setup %{conn: conn} do
+      user1 = insert(:user_without_account)
       user2 =
         insert(:user_without_account, %{
           id: "04130282-f694-4ff7-8586-a8e19c051000",
           email: "user2@teste.com"
         })
 
+      {:ok, token1, _claims} = Guardian.encode_and_sign(user1)
+      {:ok, token2, _claims} = Guardian.encode_and_sign(user2)
+      conn = put_req_header(conn, "authorization", "Bearer #{token1}")
+      conn = put_req_header(conn, "authorization", "Bearer #{token2}")
+
+      {:ok, conn: conn, user1: user1, user2: user2}
+    end
+
+    test "when all params are valid, creates the transfer", %{conn: conn, user1: user1, user2: user2} do
       from_account =
         insert(:account, %{
           id: "1553c177-ba55-46cc-8f0b-78d62fa1e257",
@@ -48,15 +57,7 @@ defmodule CoreBankApiWeb.Api.V1.TransferControllerTest do
              } = response
     end
 
-    test "when receive invalid value", %{conn: conn} do
-      user1 = insert(:user_without_account)
-
-      user2 =
-        insert(:user_without_account, %{
-          id: "04130282-f694-4ff7-8586-a8e19c051000",
-          email: "user2@teste.com"
-        })
-
+    test "when receive invalid value", %{conn: conn, user1: user1, user2: user2} do
       from_account =
         insert(:account, %{
           id: "1553c177-ba55-46cc-8f0b-78d62fa1e257",

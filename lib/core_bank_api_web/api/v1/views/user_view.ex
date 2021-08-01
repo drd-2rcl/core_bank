@@ -4,6 +4,7 @@ defmodule CoreBankApiWeb.Api.V1.UserView do
   alias CoreBankApi.{Account, User}
 
   def render("create.json", %{
+        token: token,
         user: %User{
           account: %Account{id: account_id, balance: balance},
           id: id,
@@ -13,6 +14,7 @@ defmodule CoreBankApiWeb.Api.V1.UserView do
       }) do
     %{
       message: "User created!",
+      token: token,
       user: %{
         id: id,
         name: name,
@@ -24,4 +26,6 @@ defmodule CoreBankApiWeb.Api.V1.UserView do
       }
     }
   end
+
+  def render("sign_in.json", %{token: token}), do: %{token: token}
 end

@@ -23,6 +23,11 @@ config :core_bank_api, CoreBankApiWeb.Auth.Guardian,
   issuer: "core_bank_api",
   secret_key: "9DtTfpCXWSnEEsuy25eOCajja8/55Ot0EFYjrqGAAMKIjUzXoAHKStGNeZGte9OB"
 
+# Configures the Pipeline to Guardian
+config :core_bank_api, CoreBankApiWeb.Auth.Pipeline,
+  module: CoreBankApiWeb.Auth.Guardian,
+  error_handler: CoreBankApiWeb.Auth.ErrorHandler
+
 # Configures the endpoint
 config :core_bank_api, CoreBankApiWeb.Endpoint,
   url: [host: "localhost"],

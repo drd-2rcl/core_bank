@@ -59,7 +59,8 @@ defmodule CoreBankApi.MixProject do
       {:pbkdf2_elixir, "~> 1.4"},
       {:ex_machina, "~> 2.7.0"},
       {:decimal, "~> 2.0"},
-      {:bamboo, "~> 2.2.0"}
+      {:bamboo, "~> 2.2.0"},
+      {:guardian, "~> 2.0"}
     ]
   end
 

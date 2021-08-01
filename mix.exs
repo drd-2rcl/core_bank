@@ -58,7 +58,8 @@ defmodule CoreBankApi.MixProject do
       {:excoveralls, "~> 0.10", only: :test},
       {:pbkdf2_elixir, "~> 1.4"},
       {:ex_machina, "~> 2.7.0"},
-      {:decimal, "~> 2.0"}
+      {:decimal, "~> 2.0"},
+      {:bamboo, "~> 2.2.0"}
     ]
   end
 

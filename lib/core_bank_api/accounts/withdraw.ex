@@ -9,6 +9,7 @@ defmodule CoreBankApi.Accounts.Withdraw do
   """
   alias CoreBankApi.Transfers.Debit
   alias CoreBankApi.{Account, Repo, Withdraw}
+  alias CoreBankApi.Accounts.WithdrawEmail
 
   def call(%{"id" => _id, "value" => value} = params) do
     case Debit.call(params) do
@@ -20,15 +21,25 @@ defmodule CoreBankApi.Accounts.Withdraw do
   defp insert_withdraw(%Account{id: account_id}, value) do
     params = %{account_id: account_id, amount: value}
 
-    account =
-      params
-      |> Withdraw.changeset()
-      |> Repo.insert()
-      |> handle_preload()
-
-    {:ok, account}
+    params
+    |> Withdraw.changeset()
+    |> Repo.insert()
+    |> handle_preload()
   end
 
   defp handle_preload({:error, error}), do: error
-  defp handle_preload({:ok, withdraw}), do: Repo.get(Account, withdraw.account_id)
+
+  defp handle_preload({:ok, withdraw}) do
+    case Repo.get(Account, withdraw.account_id) do
+      nil -> {:error, "Account not found!"}
+      account -> send_email(account)
+    end
+  end
+
+  defp send_email(account) do
+    account
+    |> WithdrawEmail.call()
+
+    {:ok, account}
+  end
 end

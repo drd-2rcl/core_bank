@@ -48,4 +48,8 @@ defmodule CoreBankApiWeb.Router do
       live_dashboard "/dashboard", metrics: CoreBankApiWeb.Telemetry
     end
   end
+
+  if Mix.env() == :dev do
+    forward "/sent_emails", Bamboo.SentEmailViewerPlug
+  end
 end

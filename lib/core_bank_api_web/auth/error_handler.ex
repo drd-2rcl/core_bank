@@ -1,5 +1,8 @@
 defmodule CoreBankApiWeb.Auth.ErrorHandler do
-  alias Guardian.Plug.ErrorHandler
+  @moduledoc """
+  This module is responsible for handling authentication errors
+  """
+  alias CoreBankApiWeb.Auth.ErrorHandler
   alias Plug.Conn
 
   @behaviour ErrorHandler

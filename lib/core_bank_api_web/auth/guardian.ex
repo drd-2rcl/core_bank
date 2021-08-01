@@ -1,4 +1,12 @@
 defmodule CoreBankApiWeb.Auth.Guardian do
+  @moduledoc """
+  This module is responsible for verifying user authentication
+
+  This can be used as:
+
+      alias CoreBankApiWeb.Auth.Guardian
+      Guardian.authenticate(%{"id" => user_id, "password" => password})
+  """
   use Guardian, otp_app: :core_bank_api
 
   alias CoreBankApi.User
@@ -23,5 +31,5 @@ defmodule CoreBankApiWeb.Auth.Guardian do
     end
   end
 
-  def authenticte(_), do: {:error, %{status: :bad_request, result: "Invalid or missing params"}}
+  def authenticate(_), do: {:error, %{status: :bad_request, result: "Invalid or missing params"}}
 end

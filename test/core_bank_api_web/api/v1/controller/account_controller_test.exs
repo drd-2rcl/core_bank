@@ -1,11 +1,18 @@
 defmodule CoreBankApiWeb.Api.V1.AccountControllerTest do
   use CoreBankApiWeb.ConnCase, async: true
-
   import CoreBankApi.Factory
+  alias CoreBankApiWeb.Auth.Guardian
 
   describe "withdraw/2" do
-    test "when all params are valid, creates the withdraw", %{conn: conn} do
+    setup %{conn: conn} do
       user = insert(:user)
+      {:ok, token, _claims} = Guardian.encode_and_sign(user)
+      conn = put_req_header(conn, "authorization", "Bearer #{token}")
+
+      {:ok, conn: conn, user: user}
+    end
+
+    test "when all params are valid, creates the withdraw", %{conn: conn, user: user} do
       account = insert(:account, %{user_id: user.id, balance: 100})
 
       response =
@@ -22,8 +29,7 @@ defmodule CoreBankApiWeb.Api.V1.AccountControllerTest do
              } = response
     end
 
-    test "when receive invalid value", %{conn: conn} do
-      user = insert(:user)
+    test "when receive invalid value", %{conn: conn, user: user} do
       account = insert(:account, %{user_id: user.id, balance: 100})
 
       response =

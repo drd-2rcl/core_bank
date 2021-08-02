@@ -32,6 +32,8 @@ defmodule CoreBankApi.Factory do
       age: 23,
       email: "barry_allen@teamflash.com",
       password: "123456",
+      password_hash:
+        "$pbkdf2-sha512$160000$XoSbhb.R8dtdlmmMLrsS1g$9wr6z7b6JP7vQGQd58kibYC.EjcQo2rNStP3wi27ydRvL1nz58GLrKnPn21dJ.G8SVWpKRLE9hQZ0QqUQZIzEQ",
       account: %{
         id: "961070c5-9f77-4cd2-80af-8900386e10fb",
         balance: 10

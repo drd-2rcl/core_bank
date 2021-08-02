@@ -71,8 +71,7 @@ defmodule CoreBankApiWeb.Api.V1.UserControllerTest do
         |> post(Routes.user_path(conn, :sign_in, params))
         |> json_response(:unauthorized)
 
-      assert %{"message" => "Please verify your credentials"} =
-               response
+      assert %{"message" => "Please verify your credentials"} = response
     end
 
     test "when ID is invalid", %{conn: conn} do

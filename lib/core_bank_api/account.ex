@@ -14,7 +14,7 @@ defmodule CoreBankApi.Account do
   use Ecto.Schema
   import Ecto.Changeset
 
-  alias CoreBankApi.{User, Withdraw}
+  alias CoreBankApi.{User, Withdraw, FinancialTransaction}
 
   @primary_key {:id, :binary_id, autogenerate: true}
   @foreign_key_type :binary_id
@@ -25,6 +25,7 @@ defmodule CoreBankApi.Account do
     field :balance, :decimal
     belongs_to :user, User
     has_one :withdraw, Withdraw
+    has_many :financial_transaction, FinancialTransaction
 
     timestamps()
   end

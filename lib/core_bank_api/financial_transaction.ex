@@ -4,12 +4,14 @@ defmodule CoreBankApi.FinancialTransaction do
 
   This can be used as:
 
-      alias CoreBankApi.Withdraw
+      alias CoreBankApi.FinancialTransaction
       params = %{
-        account_id:
-        amount: 1000.00,
+        type: "credit",
+        date: ~D[2021-08-01],
+        value: "10.0",
+        account_id: "da4cf0808-c436-40df-887c-3de44fb25b5c"
       }
-      Withdraw.changeset(params)
+      FinancialTransaction.changeset(params)
   """
   use Ecto.Schema
   import Ecto.{Changeset, Query}
@@ -47,7 +49,7 @@ defmodule CoreBankApi.FinancialTransaction do
     year_in = credit_transaction_group_by_year_by_account(account.id)
     year_out = debit_transaction_group_by_year_by_account(account.id)
 
-    "#{day_in}, #{day_out}, #{month_in}, #{month_out}, #{year_in}, #{year_out}"
+    [["R$ Entrada/dia", "R$ Saída/dia", "R$ Entrada/mês", "R$ Saída/mês", "R$ Entrada/ano", "R$ Saída/ano"], day_in ++ day_out ++ month_in ++ month_out ++ year_in ++ year_out]
   end
 
   defp credit_transaction_group_by_day_by_account(id) do
@@ -63,9 +65,7 @@ defmodule CoreBankApi.FinancialTransaction do
             ft.date == ^today,
         select: sum(ft.value)
 
-    [head] = Repo.all(query)
-
-    "Total de entradas por dia R$ #{head}"
+    Repo.all(query)
   end
 
   defp debit_transaction_group_by_day_by_account(id) do
@@ -81,9 +81,7 @@ defmodule CoreBankApi.FinancialTransaction do
             ft.date == ^today,
         select: sum(ft.value)
 
-    [head] = Repo.all(query)
-
-    "Total de saídas por dia R$ #{head}"
+    Repo.all(query)
   end
 
   defp credit_transaction_group_by_month_by_account(id) do
@@ -102,9 +100,7 @@ defmodule CoreBankApi.FinancialTransaction do
             ft.date <= ^end_of_month,
         select: sum(ft.value)
 
-    [head] = Repo.all(query)
-
-    "Total de entradas por mês R$ #{head}"
+    Repo.all(query)
   end
 
   defp debit_transaction_group_by_month_by_account(id) do
@@ -123,9 +119,7 @@ defmodule CoreBankApi.FinancialTransaction do
             ft.date <= ^end_of_month,
         select: sum(ft.value)
 
-    [head] = Repo.all(query)
-
-    "Total de saídas por mês R$ #{head}"
+    Repo.all(query)
   end
 
   defp credit_transaction_group_by_year_by_account(id) do
@@ -145,7 +139,7 @@ defmodule CoreBankApi.FinancialTransaction do
       |> Repo.all()
       |> Map.new(fn [k, v] -> {k, v} end)
 
-    "Total de entradas por ano R$ #{result["2021"]}"
+    [result["2021"]]
   end
 
   defp debit_transaction_group_by_year_by_account(id) do
@@ -165,6 +159,6 @@ defmodule CoreBankApi.FinancialTransaction do
       |> Repo.all()
       |> Map.new(fn [k, v] -> {k, v} end)
 
-    "Total de saídas por ano R$ #{result["2021"]}"
+    [result["2021"]]
   end
 end

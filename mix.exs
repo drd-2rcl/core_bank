@@ -60,7 +60,8 @@ defmodule CoreBankApi.MixProject do
       {:ex_machina, "~> 2.7.0"},
       {:decimal, "~> 2.0"},
       {:bamboo, "~> 2.2.0"},
-      {:guardian, "~> 2.0"}
+      {:guardian, "~> 2.0"},
+      {:csv, "~> 2.4"}
     ]
   end
 

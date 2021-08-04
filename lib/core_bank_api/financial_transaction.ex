@@ -49,7 +49,17 @@ defmodule CoreBankApi.FinancialTransaction do
     year_in = credit_transaction_group_by_year_by_account(account.id)
     year_out = debit_transaction_group_by_year_by_account(account.id)
 
-    [["R$ Entrada/dia", "R$ Saída/dia", "R$ Entrada/mês", "R$ Saída/mês", "R$ Entrada/ano", "R$ Saída/ano"], day_in ++ day_out ++ month_in ++ month_out ++ year_in ++ year_out]
+    [
+      [
+        "R$ Entrada/dia",
+        "R$ Saída/dia",
+        "R$ Entrada/mês",
+        "R$ Saída/mês",
+        "R$ Entrada/ano",
+        "R$ Saída/ano"
+      ],
+      day_in ++ day_out ++ month_in ++ month_out ++ year_in ++ year_out
+    ]
   end
 
   defp credit_transaction_group_by_day_by_account(id) do

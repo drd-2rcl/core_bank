@@ -2,8 +2,8 @@ defmodule CoreBankApiWeb.Api.V1.AccountController do
   use CoreBankApiWeb, :controller
 
   alias CoreBankApi.Account
-  alias CoreBankApiWeb.Api.V1.FallbackController
   alias CoreBankApi.FinancialTransaction
+  alias CoreBankApiWeb.Api.V1.FallbackController
 
   action_fallback FallbackController
 
@@ -24,8 +24,8 @@ defmodule CoreBankApiWeb.Api.V1.AccountController do
 
   defp csv_content(id) do
     FinancialTransaction.all_transactions(id)
-    |> CSV.encode
-    |> Enum.to_list
+    |> CSV.encode()
+    |> Enum.to_list()
     |> to_string
   end
 end

@@ -113,4 +113,13 @@ defmodule CoreBankApi.Factory do
       balance: "210.0"
     }
   end
+
+  def financial_transaction_params_factory do
+    %{
+      "type" => "credit",
+      "date" => ~D[2021-08-01],
+      "value" => "10.0",
+      "account_id" => "8ce40338-521f-4f6a-9c0e-a9022e81655e"
+    }
+  end
 end

@@ -42,5 +42,19 @@ defmodule CoreBankApi.Accounts.WithdrawTest do
 
       assert {:error, %{result: "Account not found!", status: :not_found}} = response
     end
+
+    test "when there are errors with invalid value" do
+      user = insert(:user)
+      account = insert(:account, %{user_id: user.id, balance: 100})
+
+      params = %{
+        "id" => account.id,
+        "value" => "banana"
+      }
+
+      response = Withdraw.call(params)
+
+      assert {:error, "Invalid value!"} = response
+    end
   end
 end

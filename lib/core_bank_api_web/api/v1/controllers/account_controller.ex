@@ -23,7 +23,7 @@ defmodule CoreBankApiWeb.Api.V1.AccountController do
   end
 
   defp csv_content(id) do
-    FinancialTransaction.all_transactions(id)
+    FinancialTransaction.verify_account_and_get_all_transactions(id)
     |> CSV.encode()
     |> Enum.to_list()
     |> to_string

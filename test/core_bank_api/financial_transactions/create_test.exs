@@ -16,7 +16,7 @@ defmodule CoreBankApi.FinancialTransactions.CreateTest do
               %FinancialTransaction{
                 account: _,
                 account_id: "8ce40338-521f-4f6a-9c0e-a9022e81655e",
-                date: ~D[2021-08-04],
+                date: _,
                 id: _,
                 type: :credit,
                 value: _

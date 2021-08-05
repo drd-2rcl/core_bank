@@ -104,20 +104,28 @@ defmodule CoreBankApi.FinancialTransactionTest do
       response = FinancialTransaction.verify_account_and_get_all_transactions(account.id)
 
       assert response = [
-        [
-          "R$ Entrada/dia",
-          "R$ Saída/dia",
-          "R$ Entrada/mês",
-          "R$ Saída/mês",
-          "R$ Entrada/ano",
-          "R$ Saída/ano"
-        ],
-        [[Decimal.new("10.0")] ++ [Decimal.new("236.70")] ++ [Decimal.new("170.16")] ++ [Decimal.new("237.70")] ++ [Decimal.new("170.16")] ++ [Decimal.new("783.41")]]
-      ]
+               [
+                 "R$ Entrada/dia",
+                 "R$ Saída/dia",
+                 "R$ Entrada/mês",
+                 "R$ Saída/mês",
+                 "R$ Entrada/ano",
+                 "R$ Saída/ano"
+               ],
+               [
+                 [Decimal.new("10.0")] ++
+                   [Decimal.new("236.70")] ++
+                   [Decimal.new("170.16")] ++
+                   [Decimal.new("237.70")] ++ [Decimal.new("170.16")] ++ [Decimal.new("783.41")]
+               ]
+             ]
     end
 
     test "when there are some error, returns the error" do
-      response = FinancialTransaction.verify_account_and_get_all_transactions("fdb5d4c8-fba5-4655-bc99-59963c953b4c")
+      response =
+        FinancialTransaction.verify_account_and_get_all_transactions(
+          "fdb5d4c8-fba5-4655-bc99-59963c953b4c"
+        )
 
       assert %{result: "Account not found!", status: :not_found} == response
     end

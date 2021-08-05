@@ -14,7 +14,7 @@ defmodule CoreBankApi.Factory do
   end
   """
   use ExMachina.Ecto, repo: CoreBankApi.Repo
-  alias CoreBankApi.{Account, Transfer, User, FinancialTransaction}
+  alias CoreBankApi.{Account, FinancialTransaction, Transfer, User}
 
   def user_params_factory do
     %{

@@ -39,9 +39,15 @@ defmodule CoreBankApi.FinancialTransaction do
     |> validate_required(@required_params)
   end
 
-  def all_transactions(id) do
-    {:ok, account} = GetAccount.by_id(id)
+  def verify_account_and_get_all_transactions(id) do
+    id
+    |> GetAccount.by_id()
+    |> handle_transactions()
+  end
 
+  defp handle_transactions({:error, error}), do: error
+
+  defp handle_transactions({:ok, account}) do
     day_in = credit_transaction_group_by_day_by_account(account.id)
     day_out = debit_transaction_group_by_day_by_account(account.id)
     month_in = credit_transaction_group_by_month_by_account(account.id)

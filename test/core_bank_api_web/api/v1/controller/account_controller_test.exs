@@ -62,4 +62,34 @@ defmodule CoreBankApiWeb.Api.V1.AccountControllerTest do
       assert %{"message" => "Invalid ID format!"} = response
     end
   end
+
+  describe "export/2" do
+    setup %{conn: conn} do
+      user = insert(:user)
+      {:ok, token, _claims} = Guardian.encode_and_sign(user)
+      conn = put_req_header(conn, "authorization", "Bearer #{token}")
+
+      {:ok, conn: conn, user: user}
+    end
+
+    test "when all params are valid, export the report", %{conn: conn, user: user} do
+      account = insert(:account, %{user_id: user.id, balance: 100})
+
+      insert(:financial_transaction, %{
+        account_id: account.id,
+        date: Date.utc_today(),
+        value: "32.94",
+        id: "afa26b99-3cf1-460b-9871-7bd3d768b9b4"
+      })
+
+      response =
+        conn
+        |> get(Routes.account_path(conn, :export, account.id))
+
+      assert "R$ Entrada/dia,R$ Saída/dia,R$ Entrada/mês,R$ Saída/mês,R$ Entrada/ano,R$ Saída/ano\r\n32.94,,32.94,,32.94,\r\n" =
+               response.resp_body
+
+      assert 200 = response.status
+    end
+  end
 end

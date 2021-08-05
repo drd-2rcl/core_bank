@@ -27,8 +27,6 @@ defmodule CoreBankApi.Accounts.Withdraw do
     |> handle_preload()
   end
 
-  defp handle_preload({:error, error}), do: error
-
   defp handle_preload({:ok, withdraw}) do
     case Repo.get(Account, withdraw.account_id) do
       nil -> {:error, "Account not found!"}

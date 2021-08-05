@@ -14,7 +14,7 @@ defmodule CoreBankApi.Factory do
   end
   """
   use ExMachina.Ecto, repo: CoreBankApi.Repo
-  alias CoreBankApi.{Account, Transfer, User}
+  alias CoreBankApi.{Account, FinancialTransaction, Transfer, User}
 
   def user_params_factory do
     %{
@@ -111,6 +111,25 @@ defmodule CoreBankApi.Factory do
     %Account{
       id: "41ac7822-5f62-4d49-b124-fe8db9a85dff",
       balance: "210.0"
+    }
+  end
+
+  def financial_transaction_params_factory do
+    %{
+      "type" => "credit",
+      "date" => ~D[2021-08-01],
+      "value" => "10.0",
+      "account_id" => "8ce40338-521f-4f6a-9c0e-a9022e81655e"
+    }
+  end
+
+  def financial_transaction_factory do
+    %FinancialTransaction{
+      account_id: "41ac7822-5f62-4d49-b124-fe8db9a85dff",
+      date: Date.utc_today(),
+      id: "05abbccb-8e0f-4d98-bb06-e75edf91dbf1",
+      type: :credit,
+      value: "10.0"
     }
   end
 end

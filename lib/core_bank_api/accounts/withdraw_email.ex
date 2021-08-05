@@ -29,10 +29,8 @@ defmodule CoreBankApi.Accounts.WithdrawEmail do
     |> AccountEmail.create()
     |> Mailer.deliver_now!()
     |> handle_send()
-
-    # |> IO.inspect()
   end
 
-  defp handle_send({:error, _error}), do: {:error, "Falha ao enviar o email"}
   defp handle_send(%Email{}), do: {:ok, "Email enviado com sucesso"}
+  defp handle_send(_), do: {:error, "Falha ao enviar o email"}
 end

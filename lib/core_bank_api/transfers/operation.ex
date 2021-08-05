@@ -8,6 +8,7 @@ defmodule CoreBankApi.Transfers.Operation do
   """
   alias CoreBankApi.Account
   alias CoreBankApi.Accounts.Get, as: GetAccount
+  alias CoreBankApi.FinancialTransactions.Create, as: CreateFinancialTransaction
   alias Ecto.Multi
 
   def call(%{"id" => id, "value" => value}, operation) do
@@ -27,10 +28,15 @@ defmodule CoreBankApi.Transfers.Operation do
     |> update_account(repo, account)
   end
 
-  defp operation(%Account{balance: balance}, value, operation) do
-    value
-    |> Decimal.cast()
-    |> handle_cast(balance, operation)
+  defp operation(%Account{balance: balance} = account, value, operation) do
+    result =
+      value
+      |> Decimal.cast()
+      |> handle_cast(balance, operation)
+
+    CreateFinancialTransaction.call(account, value, operation)
+
+    result
   end
 
   defp handle_cast({:ok, value}, balance, :credit), do: Decimal.add(balance, value)

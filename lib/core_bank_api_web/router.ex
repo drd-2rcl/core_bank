@@ -23,6 +23,7 @@ defmodule CoreBankApiWeb.Router do
 
     post "/transfers", TransferController, :create
     post "/accounts/:id/withdraw", AccountController, :withdraw
+    get "/accounts/:id/report", AccountController, :export
   end
 
   scope "/api/v1", CoreBankApiWeb.Api.V1 do

@@ -2,6 +2,7 @@ defmodule CoreBankApiWeb.Api.V1.AccountController do
   use CoreBankApiWeb, :controller
 
   alias CoreBankApi.Account
+  alias CoreBankApi.FinancialTransaction
   alias CoreBankApiWeb.Api.V1.FallbackController
 
   action_fallback FallbackController
@@ -12,5 +13,19 @@ defmodule CoreBankApiWeb.Api.V1.AccountController do
       |> put_status(:ok)
       |> render("update.json", account: account)
     end
+  end
+
+  def export(conn, %{"id" => id}) do
+    conn
+    |> put_resp_content_type("text/csv")
+    |> put_resp_header("content-disposition", "attachment; filename=\"report.csv\"")
+    |> send_resp(200, csv_content(id))
+  end
+
+  defp csv_content(id) do
+    FinancialTransaction.verify_account_and_get_all_transactions(id)
+    |> CSV.encode()
+    |> Enum.to_list()
+    |> to_string
   end
 end

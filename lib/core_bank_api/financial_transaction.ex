@@ -45,7 +45,7 @@ defmodule CoreBankApi.FinancialTransaction do
     |> handle_transactions()
   end
 
-  defp handle_transactions({:error, error}), do: error
+  defp handle_transactions({:error, error}), do: {:error, error}
 
   defp handle_transactions({:ok, account}) do
     day_in = credit_transaction_group_by_day_by_account(account.id)

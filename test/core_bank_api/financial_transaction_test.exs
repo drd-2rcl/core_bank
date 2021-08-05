@@ -101,9 +101,9 @@ defmodule CoreBankApi.FinancialTransactionTest do
         type: :debit
       })
 
-      response = FinancialTransaction.verify_account_and_get_all_transactions(account.id)
+      _response = FinancialTransaction.verify_account_and_get_all_transactions(account.id)
 
-      assert response = [
+      assert _response = [
                [
                  "R$ Entrada/dia",
                  "R$ Saída/dia",
@@ -127,7 +127,7 @@ defmodule CoreBankApi.FinancialTransactionTest do
           "fdb5d4c8-fba5-4655-bc99-59963c953b4c"
         )
 
-      assert %{result: "Account not found!", status: :not_found} == response
+      assert {:error, %{result: "Account not found!", status: :not_found}} == response
     end
   end
 end

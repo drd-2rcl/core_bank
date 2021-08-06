@@ -14,7 +14,7 @@ defmodule CoreBankApi.Accounts.GetTest do
 
       assert {:ok,
               %Account{
-                id: "96\1070c5-9f77-4cd2-80af-8900386e10fb",
+                id: "961070c5-9f77-4cd2-80af-8900386e10fb",
                 balance: _,
                 user_id: "f2496b9e-2b97-4abe-9856-738abcdc3d91"
               }} = response

@@ -47,6 +47,12 @@ mix test
 
 Após as validações é gerado um relatório com a cobertura de testes dentro do PR e no caso de diminuição da porcentagem, o CI falha impossibilitando o merge da branch até que seja entregue os testes faltantes.
 
+![Screenshot](assets/static/images/screenshot-github.com-2021.08.07-20_01_56.png)
+
+![Screenshot](assets/static/images/screenshot-github.com-2021.08.07-19_49_54.png)
+
+![Screenshot](assets/static/images/screenshot-github.com-2021.08.07-19_50_18.png)
+
 Com o PR finalizado e validado pelas ferramentas, é liberado o merge e após as devidas validações na branch main é iniciado o processo de deploy no Gigalixir.
 
 Desta forma, fica automatizado:
@@ -102,7 +108,7 @@ Não esqueça de selecionar os ambientes (desenvolvimento ou produção) para re
 
 Todas as rotas necessitam de autenticação via Bearer Token, exceto na `criação de usuários` e `sign_in`. Inclusive são as rotas em que o token é gerado e respondido.
 
-As requisições para as rotas `transfers`, `withdraw` e `report` são feitos com base no `id` da conta que pode ser resgatado quando o usuário é criado. Existem validações no caso de id inválido ou o id não exitir no banco.
+As requisições para as rotas `transfers`, `withdraw` e `report` são feitos com base no `id` da conta que pode ser resgatado quando o usuário é criado. Existem validações no caso de id inválido ou o id não existir no banco.
 
 Os envios de email nas realizações de saque ocorrem em ambiente de desenvolvimento. Para validar o envio acesse a rota [`localhost:4000/sent_emails`](http://localhost:4000/sent_emails)
 

@@ -22,9 +22,6 @@
     <li>
       <a href="#documentação-api">Documentação API</a>
     </li>
-    <li>
-      <a href="#problemas-na-configuração">Problemas na configuração?</a>
-    </li>
   </ol>
 </details>
 
@@ -77,13 +74,8 @@ Desta forma, fica automatizado:
 git clone git@github.com:drd-2rcl/core_bank.git
 cd core_bank
 docker-compose build
-cd assets && npm i
-cd ../
-docker-compose run api mix deps.get
-docker-compose run api mix deps.compile
-docker-compose run api mix ecto.create #Problemas na configuração?
-docker-compose run api mix ecto.migrate
 docker-compose up
+docker-compose run api mix setup
 ```
 
 Pronto, temos a nossa aplicação em pé e você pode visitar o [`localhost:4000`](http://localhost:4000) no seu browser.
@@ -104,48 +96,16 @@ docker-compose run api mix test --cover
 
 ### Documentação API
 
-A documentação da API foi disponibilizada neste [link](https://documenter.getpostman.com/view/5077223/Tzsikixr) público do postman.
+A documentação da API foi disponibilizada neste [link](https://documenter.getpostman.com/view/5077223/Tzsikixr) público do postman. E também criei este workspace público que pode ser acessado [aqui](https://www.postman.com/orange-flare-200437/workspace/corebankapi/request/5077223-4b6f2bbf-3985-4d49-af60-4a1c8a14257f).
 
 Não esqueça de selecionar os ambientes (desenvolvimento ou produção) para realizar os requests, pois a `base_url` altera de um para o outro.
 
-Todas as rotas necessitam de autenticação via Bearer Token, exceto na `criação de usuários` e `sign_in`.
+Todas as rotas necessitam de autenticação via Bearer Token, exceto na `criação de usuários` e `sign_in`. Inclusive são as rotas em que o token é gerado e respondido.
 
-Os requests para `transfers`, `withdraw` e `report` são feitos com base no `id` da conta que pode ser resgatado quando o usuário é criado;
+As requisições para as rotas `transfers`, `withdraw` e `report` são feitos com base no `id` da conta que pode ser resgatado quando o usuário é criado. Existem validações no caso de id inválido ou o id não exitir no banco.
 
 Os envios de email nas realizações de saque ocorrem em ambiente de desenvolvimento. Para validar o envio acesse a rota [`localhost:4000/sent_emails`](http://localhost:4000/sent_emails)
 
-### Problemas na configuração?
+Este é o [link](https://vain-silver-verdin.gigalixirapp.com/) da api em produção.
 
-Tive problemas nas vezes em que voltei a buildar o projeto, então vou deixar registrado e como resolver para caso alguém tenha também.
-
-Em algumas vezes em que baixei o projeto e tentei criar o banco após buildar a imagem eu tinha esse erro:
-
-```bash
-▶ docker-compose run api mix ecto.create
-
-Creating core_bank_db_1 ... done
-
-16:59:22.330 [error] GenServer #PID<0.286.0> terminating
-** (DBConnection.ConnectionError) tcp connect (db:5432): connection refused - :econnrefused
-    (db_connection 2.4.0) lib/db_connection/connection.ex:100: DBConnection.Connection.connect/2
-    (connection 1.1.0) lib/connection.ex:622: Connection.enter_connect/5
-    (stdlib 3.14) proc_lib.erl:226: :proc_lib.init_p_do_apply/3
-Last message: nil
-State: Postgrex.Protocol
-
-16:59:22.347 [error] GenServer #PID<0.292.0> terminating
-** (DBConnection.ConnectionError) tcp connect (db:5432): connection refused - :econnrefused
-    (db_connection 2.4.0) lib/db_connection/connection.ex:100: DBConnection.Connection.connect/2
-    (connection 1.1.0) lib/connection.ex:622: Connection.enter_connect/5
-    (stdlib 3.14) proc_lib.erl:226: :proc_lib.init_p_do_apply/3
-Last message: nil
-State: Postgrex.Protocol
-** (Mix) The database for CoreBankApi.Repo couldn't be created: killed
-```
-
-Neste caso, o problema ocorreu por que após o `docker-compose build` o container do postgres ficou em pé (up). Rode os seguintes comandos:
-
-1. Liste os containers `docker ps -a`
-2. Verifique o ID e pare o container (os três caracteres iniciais já são suficientes) `docker stop 5b0`
-
-Nenhum container em pé? Então pode seguir com a criação e migração do banco. =)
+Grato pelo oportunidade :).

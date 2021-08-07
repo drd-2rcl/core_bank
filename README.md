@@ -47,7 +47,11 @@ mix test
 
 Após as validações é gerado um relatório com a cobertura de testes dentro do PR e no caso de diminuição da porcentagem, o CI falha impossibilitando o merge da branch até que seja entregue os testes faltantes.
 
+![Screenshot](assets/static/images/screenshot-github.com-2021.08.07-19_49_54.png)
+
 Com o PR finalizado e validado pelas ferramentas, é liberado o merge e após as devidas validações na branch main é iniciado o processo de deploy no Gigalixir.
+
+![Screenshot](assets/static/images/screenshot-github.com-2021.08.07-19_50_18.png)
 
 Desta forma, fica automatizado:
 

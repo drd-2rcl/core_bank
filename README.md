@@ -108,7 +108,7 @@ Não esqueça de selecionar os ambientes (desenvolvimento ou produção) para re
 
 Todas as rotas necessitam de autenticação via Bearer Token, exceto na `criação de usuários` e `sign_in`. Inclusive são as rotas em que o token é gerado e respondido.
 
-As requisições para as rotas `transfers`, `withdraw` e `report` são feitos com base no `id` da conta que pode ser resgatado quando o usuário é criado. Existem validações no caso de id inválido ou o id não exitir no banco.
+As requisições para as rotas `transfers`, `withdraw` e `report` são feitos com base no `id` da conta que pode ser resgatado quando o usuário é criado. Existem validações no caso de id inválido ou o id não existir no banco.
 
 Os envios de email nas realizações de saque ocorrem em ambiente de desenvolvimento. Para validar o envio acesse a rota [`localhost:4000/sent_emails`](http://localhost:4000/sent_emails)
 

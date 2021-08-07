@@ -16,14 +16,16 @@ defmodule CoreBankApiWeb.Api.V1.AccountController do
   end
 
   def export(conn, %{"id" => id}) do
-    conn
-    |> put_resp_content_type("text/csv")
-    |> put_resp_header("content-disposition", "attachment; filename=\"report.csv\"")
-    |> send_resp(200, csv_content(id))
+    with {:ok, values} <- FinancialTransaction.verify_account_and_get_all_transactions(id) do
+      conn
+      |> put_resp_content_type("text/csv")
+      |> put_resp_header("content-disposition", "attachment; filename=\"report.csv\"")
+      |> send_resp(200, csv_content(values))
+    end
   end
 
-  defp csv_content(id) do
-    FinancialTransaction.verify_account_and_get_all_transactions(id)
+  defp csv_content(values) do
+    values
     |> CSV.encode()
     |> Enum.to_list()
     |> to_string
